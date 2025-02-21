@@ -13,10 +13,10 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
 
   @Input() items: any = [];
   @Input() titleCase: boolean = true;
-  @Input() bindLabel: string = '';
-  @Input() bindValue: string = '';
+  @Input() bindLabel: string = 'Name';
+  @Input() bindValue: string = 'Id';
   @Input() includeEntireObject: boolean = false;
-  @Input() groupBy: string = '';
+  @Input() groupBy: string = 'children';
   @Input() noDataFoundText: string = '';
   @Input() placeHolder: string = '';
   @Input() closeOnSelect: any = true;
@@ -34,6 +34,15 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   @Input() ngModel: any;
   @Output() ngModelChange: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() select: EventEmitter<any> = new EventEmitter<any>();
+  @Output() open: EventEmitter<any> = new EventEmitter<any>();
+  @Output() close: EventEmitter<any> = new EventEmitter<any>();
+  @Output() clear: EventEmitter<any> = new EventEmitter<any>();
+  @Output() clearAll: EventEmitter<any> = new EventEmitter<any>();
+  @Output() search: EventEmitter<any> = new EventEmitter<any>();
+  @Output() scroll: EventEmitter<any> = new EventEmitter<any>();
+
   selectedItems: any[] = [];
 
   constructor(
@@ -45,6 +54,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   onClickOutside(event: Event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.dropdownOpen = false;
+      this.close.emit(true);
     }
   }
 
@@ -67,13 +77,22 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
       this.dropdownPosition = this.config.dropdownPosition;
       this.includeEntireObject = this.config.includeEntireObject;
     }
-
     if (!!this.readonly) {
       this.dropdownOpen = false;
     }
 
+    if (!!this.dropdownOpen) {
+      this.open.emit(true);
+    }
+
     if (!this.multiple && !!Array.isArray(this.ngModel)) {
       this.ngModel = [this.ngModel[0]];
+    } else if (!this.multiple && !isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
+      this.ngModel = [this.ngModel];
+    } else if (!this.multiple && !isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
+      this.ngModel = [this.ngModel];
+    } else if (!this.multiple && typeof this.ngModel === 'object' && this.ngModel !== null) {
+      this.ngModel = [this.ngModel[this.bindValue]];
     }
   }
 
@@ -83,6 +102,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
+    !!this.dropdownOpen ? this.open.emit(true) : this.close.emit(true);
   }
 
   getName(text: string) {
@@ -105,13 +125,14 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     if (!!this.placeHolder) {
       return this.placeHolder;
     } else {
-      return ('No Data Found');
+      return ('Select Data');
     }
   }
 
   closeModalOnSelect() {
     if (!!this.closeOnSelect) {
       this.dropdownOpen = false;
+      this.close.emit(true);
     }
   }
 
@@ -184,6 +205,13 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
       this.selectedItems = [];
     }
     item.checked = checked;
+    if (!!checked) {
+      this.select.emit(item);
+      this.change.emit(item);
+    } else {
+      this.clear.emit(item);
+      this.change.emit(item);
+    }
     this.updateChildren(item, checked);
     this.updateParent(this.items, null);
   }
@@ -267,6 +295,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   }
 
   removeItem(item: any) {
+    this.clear.emit(item);
+    this.change.emit(item);
     const removeNode = (nodes: any[]) => {
       nodes.forEach((node) => {
         if (node[this.bindValue] === item[this.bindValue]) {
@@ -287,6 +317,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   removeAll() {
     this.selectedItems = []; // Clear all selected items
     this.uncheckAll(this.items); // Uncheck all nodes in data
+    this.clearAll.emit(true)
+    this.change.emit(true)
     this.ngModelChange.emit(null);
   }
 
