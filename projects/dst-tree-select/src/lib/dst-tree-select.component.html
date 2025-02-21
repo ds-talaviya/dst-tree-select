@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen">
+    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen" [ngClass]="getDropdownClass()">
         <ng-container *ngIf="items.length > 0; else noDataFound">
             <ng-container *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: items, level: 0 }"></ng-container>
 

@@ -123,6 +123,46 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     }
   }
 
+  getDropdownClass(): { [key: string]: boolean } {
+    if (!this.dropdownPosition || this.dropdownPosition === 'auto') {
+      return this.getAutoPosition(); // Auto-positioning logic
+    }
+
+    return {
+      'left': this.dropdownPosition === 'left',
+      'right': this.dropdownPosition === 'right',
+      'top': this.dropdownPosition === 'top',
+      'bottom': this.dropdownPosition === 'bottom',
+      'center': this.dropdownPosition === 'center',
+      'left-bottom': this.dropdownPosition === 'left-bottom',
+      'right-bottom': this.dropdownPosition === 'right-bottom',
+      'left-top': this.dropdownPosition === 'left-top',
+      'right-top': this.dropdownPosition === 'right-top',
+      'center-top': this.dropdownPosition === 'center-top',
+      'center-bottom': this.dropdownPosition === 'center-bottom'
+    };
+  }
+
+  getAutoPosition(): { [key: string]: boolean } {
+    const dropdownElement = document.querySelector('.dropdown-menu');
+    if (!dropdownElement) return { bottom: true }; // Default fallback
+
+    const rect = dropdownElement.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Determine the best position based on screen space
+    if (rect.right > windowWidth) {
+      return { left: true };  // Move left if overflowing on the right
+    } else if (rect.left < 0) {
+      return { right: true }; // Move right if overflowing on the left
+    } else if (rect.bottom > windowHeight) {
+      return { top: true };   // Move up if overflowing at the bottom
+    } else {
+      return { bottom: true }; // Default to bottom
+    }
+  }
+
   preselectNodesById(nodeList: any[], preselectedIds: number[]) {
     nodeList.forEach((node) => {
       if (preselectedIds.includes(node[this.bindValue])) {

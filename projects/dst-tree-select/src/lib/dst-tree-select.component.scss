@@ -7,16 +7,11 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
     min-width: 200px;
     width: auto;
-    max-width: none;
     max-height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
-    transform: none;
-    will-change: auto;
     border-radius: 0 0 4px 4px;
     border: 1px solid #e6e6e6;
     z-index: 1000;
@@ -32,6 +27,66 @@
 
 .dropdown.open .dropdown-menu {
     display: block;
+}
+
+/* Positioning */
+.dropdown-menu.left {
+    left: 0;
+    top: 100%;
+}
+
+.dropdown-menu.right {
+    right: 0;
+    top: 100%;
+}
+
+.dropdown-menu.top {
+    top: auto;
+    bottom: 100%;
+    left: 0;
+}
+
+.dropdown-menu.bottom {
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-menu.left-bottom {
+    left: 0;
+    top: 100%;
+}
+
+.dropdown-menu.right-bottom {
+    right: 0;
+    top: 100%;
+}
+
+.dropdown-menu.left-top {
+    left: 0;
+    bottom: 100%;
+}
+
+.dropdown-menu.right-top {
+    right: 0;
+    bottom: 100%;
+}
+
+.dropdown-menu.center {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+}
+
+.dropdown-menu.center-top {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%) translateY(-100%);
+}
+
+.dropdown-menu.center-bottom {
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(100%);
 }
 
 .dropdown-item {
