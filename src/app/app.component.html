@@ -1,1 +1,62 @@
-<dst-tree-select></dst-tree-select>
+<h1> By property Multi select </h1>
+<dst-tree-select
+    [items]="data"
+    [(ngModel)]="selectedUsers"
+    [titleCase] = "true"
+    [bindLabel] = "'Name'"
+    [bindValue] = "'Id'"
+    [includeEntireObject] = "true"
+    [groupBy] = "'SubManagers'"
+    [noDataFoundText] = "'No Teams Found'"
+    [placeHolder] = "'Select Teams'"
+    [closeOnSelect] = "false"
+    [clearable] = "true"
+    [clearAllText] = "'Remove All'"
+    [dropdownOpen] = "false"
+    [readonly] = "false"
+    [multiple] = "true"
+    [dropdownPosition] = "'auto'"
+    [searchable] = "true"
+    [expandable] = "true"
+    (open)="func('open',$event)"
+    (close)="func('close',$event)"
+    (change)="func('change',$event)"
+    (select)="func('select',$event)"
+    (clear)="func('clear',$event)"
+    (clearAll)="func('clearAll',$event)"
+    (search)="func('search',$event)"
+    (scroll)="func('scroll',$event)"
+    >
+</dst-tree-select>
+
+<h1> By Config Multi select </h1>
+<dst-tree-select
+    [items]="data"
+    [(ngModel)]="selectedUsers"
+    [config] = "config"
+    (open)="func('open',$event)"
+    (close)="func('close',$event)"
+    (change)="func('change',$event)"
+    (select)="func('select',$event)"
+    (clear)="func('clear',$event)"
+    (clearAll)="func('clearAll',$event)"
+    (search)="func('search',$event)"
+    (scroll)="func('scroll',$event)"
+    >
+</dst-tree-select>
+
+<h1> By Config Single select </h1>
+<dst-tree-select
+    [items]="data"
+    [(ngModel)]="selectedUser"
+    [config] = "singleSelectConfig"
+    (open)="func('open',$event)"
+    (close)="func('close',$event)"
+    (change)="func('change',$event)"
+    (select)="func('select',$event)"
+    (clear)="func('clear',$event)"
+    (clearAll)="func('clearAll',$event)"
+    (search)="func('search',$event)"
+    (scroll)="func('scroll',$event)"
+    >
+</dst-tree-select>
