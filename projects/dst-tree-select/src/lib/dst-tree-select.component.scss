@@ -1,0 +1,208 @@
+.dropdown {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    width: auto;
+    max-width: none;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: none;
+    will-change: auto;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #e6e6e6;
+    z-index: 1000;
+    border-top-color: rgb(230, 230, 230);
+    background-color: #fff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    padding: 5px 0;
+    margin-top: -1px;
+    font-size: 1rem;
+    color: #414658;
+    text-align: left;
+    list-style: none;
+    background-clip: padding-box;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    white-space: normal;
+    word-wrap: break-word;
+    border: 0;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    background-color: transparent;
+    outline: 0;
+    cursor: pointer;
+}
+
+.dropdown-item:last-child {
+    border-bottom-right-radius: calc(0.25rem - 1px);
+    border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+.dropdown-item:first-child {
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #ebf5ff;
+}
+
+.dropdown-item-selected {
+    background-color: #ebf5ff;
+}
+
+.highlight-keyword {
+    // font-weight: bold;
+    // color: #16181b;
+}
+
+.chip-input {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+
+    .chip-select-container {
+        cursor: default;
+        display: flex;
+        outline: none;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        color: #333;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        min-height: 36px;
+        align-items: center;
+
+        .chip-value-container {
+            box-sizing: border-box;
+            align-items: center;
+            display: flex;
+            flex: 1;
+            padding-top: 5px;
+            padding-left: 7px;
+            flex-wrap: wrap;
+
+            .chip-value {
+                white-space: nowrap;
+                font-size: .9em;
+                margin-bottom: 5px;
+                background-color: #ebf5ff;
+                border-radius: 2px;
+                margin-right: 5px;
+
+                .chip-value-label {
+                    display: inline-block;
+                    padding: 1px 5px;
+                }
+
+                .chip-value-icon {
+                    display: inline-block;
+                    padding: 1px 5px;
+                    cursor: pointer;
+                    border-left: 1px solid #b8dbff;
+                }
+            }
+
+            .chip-input {
+                flex: 1;
+                z-index: 2;
+                opacity: 1;
+                padding: 0 0 3px 3px;
+
+                input {
+                    box-sizing: content-box;
+                    background: none transparent;
+                    border: 0;
+                    box-shadow: none;
+                    outline: none;
+                    padding: 0;
+                    cursor: default;
+                    width: 100%;
+                }
+
+                input::placeholder {
+                    color: #999;
+                }
+            }
+        }
+    }
+
+    .chip-clear-wrapper {
+        cursor: pointer;
+        position: relative;
+        width: 17px;
+        color: #999;
+
+        span {
+            box-sizing: border-box;
+        }
+
+        .chip-clear {
+            display: inline-block;
+            font-size: 18px;
+            line-height: 1;
+            pointer-events: none;
+        }
+    }
+
+    .chip-arrow-wrapper {
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        width: 25px;
+        padding-right: 5px;
+
+        span {
+            box-sizing: border-box;
+        }
+
+        .chip-arrow {
+            border-color: #999 transparent transparent;
+            border-style: solid;
+            border-width: 5px 5px 2.5px;
+            pointer-events: none;
+            display: inline-block;
+            height: 0;
+            width: 0;
+            position: relative;
+        }
+    }
+}
+
+.custom-control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-control-label {
+    flex: 1;
+    padding-left: 10px;
+    white-space: normal;
+}
