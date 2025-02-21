@@ -1,3 +1,4 @@
+{{selectedItems | json}}
 <div class="dropdown" [class.open]="dropdownOpen">
     <div class="chip-input" (click)="!readonly ? toggleDropdown() : null">
         <div class="chip-select-container">
@@ -24,7 +25,7 @@
                 <span class=" chip-clear">×</span>
             </div>
             <div class="chip-arrow-wrapper">
-                <span class="chip-arrow"></span>
+                <span class="chip-arrow" [ngClass]="{'chip-arrow-up': dropdownOpen }"></span>
             </div>
         </div>
     </div>

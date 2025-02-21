@@ -190,6 +190,12 @@ a {
             width: 0;
             position: relative;
         }
+
+        .chip-arrow-up {
+            top: -2px;
+            border-color: transparent transparent rgb(153, 153, 153);
+            border-width: 0px 5px 5px;
+        }
     }
 }
 
@@ -206,7 +212,7 @@ a {
 }
 
 
-.no-data-found{
+.no-data-found {
     color: inherit;
     padding: 0.25rem 1rem;
     user-select: none;
