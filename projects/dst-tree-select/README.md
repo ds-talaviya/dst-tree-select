@@ -4,7 +4,7 @@ dst-tree-select is a highly customizable tree-based dropdown component for Angul
 It supports both single and multiple selections with hierarchical data, making it ideal for use cases like category and nested data structures.
 
 ## Demo
-[Stackblitz Demo](https://stackblitz.com/~/github.com/dhruvil-52/dst-tree-select-demo)
+[Stackblitz Demo](https://stackblitz.com/~/github.com/dhruvil-52/dst-tree-select-example)
 
 ## Installation
 npm i @ng-select/ng-select 
