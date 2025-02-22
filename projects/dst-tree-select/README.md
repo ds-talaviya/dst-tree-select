@@ -13,7 +13,7 @@ npm i @ng-select/ng-select
 import DstTreeSelectModule module in your module file
 ```python
 import { NgModule } from '@angular/core';
-import { DstTreeSelectModule } from 'projects/dst-tree-select/src/public-api';
+import { DstTreeSelectModule } from 'dst-tree-select';
 
 @NgModule({
   declarations: [],
