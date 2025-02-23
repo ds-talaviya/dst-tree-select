@@ -12,8 +12,12 @@ import { DstTreeSelectService } from './dst-tree-select.service';
 export class DstTreeSelectComponent implements OnChanges, OnInit {
 
   @Input() id!: string;
+  // for perfectly work everything (treat every dropdown individually), you have to make deep copy of objects and arrays of input bound properties (due to none Primitives type, use same reference not making deep copy), for string, number, boolean variables it's not needed
+  @Input() config: any = {};
+  internalConfig: any = {}; // this will help to treat every dropdown individually
   @Input() items: any = [];
   internalItems: any[] = []; // this will help to treat every dropdown individually
+
   @Input() titleCase: boolean = true;
   @Input() bindLabel: string = 'Name';
   @Input() bindValue: string = 'Id';
@@ -21,7 +25,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   @Input() groupBy: string = 'children';
   @Input() noDataFoundText: string = '';
   @Input() placeHolder: string = '';
-  @Input() closeOnSelect: any = true;
+  @Input() closeOnSelect: any = false;
   @Input() dropdownOpen: any = false;
   @Input() clearable: any = true;
   @Input() readonly: any = false;
@@ -30,8 +34,6 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   @Input() searchable: any = true;
   @Input() expandable: any = false;
   @Input() dropdownPosition: string = '';
-
-  @Input() config: any = {};
 
   @Input() ngModel: any = null;
   preselected: any = [];
@@ -62,34 +64,36 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.config && Object.keys(this.config).length) {
-      this.titleCase = this.config.titleCase;
-      this.bindLabel = this.config.bindLabel;
-      this.bindValue = this.config.bindValue;
-      this.groupBy = this.config.groupBy;
-      this.noDataFoundText = this.config.noDataFoundText;
-      this.placeHolder = this.config.placeHolder;
-      this.closeOnSelect = this.config.closeOnSelect;
-      this.dropdownOpen = this.config.dropdownOpen;
-      this.clearable = this.config.clearable;
-      this.multiple = this.config.multiple;
-      this.searchable = this.config.searchable;
-      this.readonly = this.config.readonly;
-      this.expandable = this.config.expandable;
-      this.clearAllText = this.config.clearAllText;
-      this.dropdownPosition = this.config.dropdownPosition;
-      this.includeEntireObject = this.config.includeEntireObject;
-    }
-    if (!!this.readonly) {
+    if (this.readonly) {
       this.dropdownOpen = false;
     }
-
-    if (!!this.dropdownOpen) {
+    if (this.dropdownOpen) {
       this.open.emit(true);
     }
+    if (changes['config'] && changes['config'].currentValue) {
+      // Ensure deep copy to prevent reference issues
+      this.internalConfig = JSON.parse(JSON.stringify(this.config));
 
+      // Assign properties safely from internalConfig
+      this.titleCase = this.internalConfig?.titleCase;
+      this.bindLabel = this.internalConfig?.bindLabel;
+      this.bindValue = this.internalConfig?.bindValue;
+      this.groupBy = this.internalConfig?.groupBy;
+      this.noDataFoundText = this.internalConfig?.noDataFoundText;
+      this.placeHolder = this.internalConfig?.placeHolder;
+      this.closeOnSelect = this.internalConfig?.closeOnSelect;
+      this.dropdownOpen = this.internalConfig?.dropdownOpen;
+      this.clearable = this.internalConfig?.clearable;
+      this.multiple = this.internalConfig?.multiple;
+      this.searchable = this.internalConfig?.searchable;
+      this.readonly = this.internalConfig?.readonly;
+      this.expandable = this.internalConfig?.expandable;
+      this.clearAllText = this.internalConfig?.clearAllText;
+      this.dropdownPosition = this.internalConfig?.dropdownPosition;
+      this.includeEntireObject = this.internalConfig?.includeEntireObject;
+    }
     if (changes['items'] && changes['items'].currentValue) {
-      // Create a deep copy to prevent shared reference issues
+      // Deep copy to prevent shared reference issues
       this.internalItems = JSON.parse(JSON.stringify(this.items));
     }
   }
