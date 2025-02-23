@@ -121,6 +121,8 @@ config = {
 | dropdownPosition | Position of dropdown              | auto, top, bottom                | auto             |
 | searchable       | Allow searching elements          | true, false                      | true             |
 | expandable       | Allow expand collapse selection   | true, false                      | true             |
+| height           | Allow to give custom max height   | em, rem, px (any unit)           | 350px            |
+| width            | Allow to give custom max width    | em, rem, px (any unit)           | 250px            |
 
 ### Outputs
 | events            | Description                             | Value return           |
