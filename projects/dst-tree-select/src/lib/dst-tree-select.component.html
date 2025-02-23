@@ -29,14 +29,15 @@
         </div>
     </div>
 
-    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen" [ngClass]="getDropdownClass()"
-        (scroll)="onScrollMenu($event)">
+    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen"
+        [ngStyle]="{'max-width':width,'overflow-x': width ? 'auto' : 'hidden', 'max-height':height}"
+        [ngClass]="getDropdownClass()" (scroll)="onScrollMenu($event)">
         <ng-container *ngIf="internalItems.length > 0; else noDataFound">
             <ng-container
                 *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: internalItems, level: 0 }"></ng-container>
 
             <ng-template #recursiveCheckbox let-children let-level="level">
-                <div *ngFor="let item of children; let i = index">
+                <ng-container *ngFor="let item of children; let i = index">
                     <a href="javascript:;" class="dropdown-item" [ngStyle]="{'padding-left': (level * 15) + 10 + 'px'}">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input"
@@ -54,7 +55,7 @@
                             *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: item[groupBy], level: level + 1 }">
                         </ng-container>
                     </ng-container>
-                </div>
+                </ng-container>
             </ng-template>
         </ng-container>
         <ng-template #noDataFound>

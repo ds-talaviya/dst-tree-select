@@ -6,10 +6,10 @@
 
 .dropdown-menu {
     display: none;
-    position: absolute;
-    min-width: 200px;
+    position: relative;
     width: auto;
     max-height: 350px;
+    max-width: 250px;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 0 0 4px 4px;
@@ -97,7 +97,6 @@
     white-space: normal;
     word-wrap: break-word;
     border: 0;
-    cursor: pointer;
 }
 
 a {
@@ -105,7 +104,11 @@ a {
     text-decoration: none;
     background-color: transparent;
     outline: 0;
-    cursor: pointer;
+    cursor: auto;
+
+    label {
+        cursor: pointer;
+    }
 }
 
 .dropdown-item:last-child {

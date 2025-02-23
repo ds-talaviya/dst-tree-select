@@ -34,6 +34,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   @Input() searchable: any = true;
   @Input() expandable: any = false;
   @Input() dropdownPosition: string = '';
+  @Input() width: any;
+  @Input() height: any;
 
   @Input() ngModel: any = null;
   preselected: any = [];
@@ -91,6 +93,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
       this.clearAllText = this.internalConfig?.clearAllText;
       this.dropdownPosition = this.internalConfig?.dropdownPosition;
       this.includeEntireObject = this.internalConfig?.includeEntireObject;
+      this.width = this.internalConfig?.width;
+      this.height = this.internalConfig?.height;
     }
     if (changes['items'] && changes['items'].currentValue) {
       // Deep copy to prevent shared reference issues
