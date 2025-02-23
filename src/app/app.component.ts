@@ -9,7 +9,7 @@ import { data } from './data';
 export class AppComponent {
   title = 'tree-select';
   data = data;
-  selectedUsers: any = [11, 12];
+  selectedUsers: any = [7, 16, 11, 12];
   selectedUsers2: any = [10, 12];
 
   // single select bind value (anything you can use)
@@ -32,11 +32,11 @@ export class AppComponent {
     clearAllText: "Remove All",
     dropdownOpen: false,
     readonly: false,
-    dropdownPosition: "left",
+    dropdownPosition: "auto",
     searchable: true,
     expandable: true,
-    height:'150px',
-    width:'20rem'
+    height:'300px',
+    width: '1000px'
   }
 
   singleSelectConfig = {
