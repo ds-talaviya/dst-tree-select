@@ -1,12 +1,12 @@
 <h1> By property Multi select </h1>
-<dst-tree-select
+<dst-tree-select id="id1"
     [items]="data"
     [(ngModel)]="selectedUsers"
     [titleCase] = "true"
     [bindLabel] = "'Name'"
     [bindValue] = "'Id'"
-    [includeEntireObject] = "true"
-    [groupBy] = "'SubManagers'"
+    [includeEntireObject] = "false"
+    [groupBy] = "'Teams'"
     [noDataFoundText] = "'No Teams Found'"
     [placeHolder] = "'Select Teams'"
     [closeOnSelect] = "false"
@@ -30,9 +30,9 @@
 </dst-tree-select>
 
 <h1> By Config Multi select </h1>
-<dst-tree-select
+<dst-tree-select id="id2"
     [items]="data"
-    [(ngModel)]="selectedUsers"
+    [(ngModel)]="selectedUsers2"
     [config] = "config"
     (open)="func('open',$event)"
     (close)="func('close',$event)"
@@ -46,7 +46,7 @@
 </dst-tree-select>
 
 <h1> By Config Single select </h1>
-<dst-tree-select
+<dst-tree-select id="id3"
     [items]="data"
     [(ngModel)]="selectedUser"
     [config] = "singleSelectConfig"
@@ -60,3 +60,7 @@
     (scroll)="func('scroll',$event)"
     >
 </dst-tree-select>
+
+{{selectedUsers | json}} <br>
+{{selectedUsers2 | json}} <br>
+{{selectedUser | json}} <br> 

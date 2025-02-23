@@ -9,23 +9,24 @@ import { data } from './data';
 export class AppComponent {
   title = 'tree-select';
   data = data;
-  selectedUsers: any = [6,16];
+  selectedUsers: any = [11, 12];
+  selectedUsers2: any = [10, 12];
 
-  // single select bind value
-  selectedUser = [19, 20]; //take first
+  // single select bind value (anything you can use)
+  // selectedUser = [12,13]; //take first
   // selectedUser = [19]; 
-  // selectedUser = 19; 
-  // selectedUser = { Id: 19 }; //by Object
+  selectedUser = 5;
+  // selectedUser = { Id: 6 }; // by Object (key name should be matched with bindValue)
 
   config = {
     multiple: true,
     titleCase: true,
     bindLabel: "Name",
     bindValue: "Id",
-    includeEntireObject: true,
-    groupBy: "SubManagers",
-    noDataFoundText: "No Managers Found",
-    placeHolder: "Select Sub Manager",
+    includeEntireObject: false,
+    groupBy: "Teams",
+    noDataFoundText: "No Teams Found",
+    placeHolder: "Select Teams",
     closeOnSelect: false,
     clearable: true,
     clearAllText: "Remove All",
@@ -37,22 +38,9 @@ export class AppComponent {
   }
 
   singleSelectConfig = {
+    ...this.config,
     multiple: false,
-    titleCase: true,
-    bindLabel: "Name",
-    bindValue: "Id",
-    includeEntireObject: true,
-    groupBy: "SubManagers",
-    noDataFoundText: "No Managers Found",
-    placeHolder: "Select Sub Manager",
-    closeOnSelect: false,
-    clearable: true,
-    clearAllText: "Remove All",
-    dropdownOpen: false,
-    readonly: false,
-    dropdownPosition: "auto",
-    searchable: true,
-    expandable: true,
+    closeOnSelect: true
   }
 
   func(type: any = "a", event: any = "b") {

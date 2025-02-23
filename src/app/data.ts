@@ -1,28 +1,37 @@
 export const data = [
     {
         "Id": 1,
-        "Name": "cravingcode",
-        "SubManagers": [
+        "Name": "Samay",
+        "Teams": [
             {
                 "Id": 2,
-                "Name": "buildesk ",
-                "SubManagers": [
+                "Name": "Carry",
+                "Teams": [
                     {
                         "Id": 3,
-                        "Name": "Dinesh",
-                        "SubManagers": [
+                        "Name": "Bhuvan",
+                        "Teams": [
                             {
                                 "Id": 4,
-                                "Name": "akshay",
-                                "SubManagers": [
+                                "Name": "Fukra",
+                                "Teams": [
                                     {
                                         "Id": 5,
-                                        "Name": "Dhruvil",
-                                        "SubManagers": [
+                                        "Name": "Triggered",
+                                        "Teams": [
                                             {
                                                 "Id": 6,
-                                                "Name": "Mohit Singh",
-                                                "SubManagers": [],
+                                                "Name": "Mithpat",
+                                                "Teams": [],
+                                                "TeamIds": [
+                                                    "1",
+                                                    "2"
+                                                ]
+                                            },
+                                            {
+                                                "Id": 13,
+                                                "Name": "Dimple",
+                                                "Teams": [],
                                                 "TeamIds": [
                                                     "1",
                                                     "2"
@@ -47,26 +56,44 @@ export const data = [
                         ]
                     },
                     {
-                        "Id": 16,
-                        "Name": "akshay",
-                        "SubManagers": [
+                        "Id": 7,
+                        "Name": "Ranbeer",
+                        "Teams": [
                             {
-                                "Id": 17,
-                                "Name": "Dhruvil",
-                                "SubManagers": [
+                                "Id": 8,
+                                "Name": "Ashish",
+                                "Teams": [
                                     {
-                                        "Id": 18,
-                                        "Name": "Mohit Singh",
-                                        "SubManagers": [],
+                                        "Id": 9,
+                                        "Name": "Sweggar",
+                                        "Teams": [],
                                         "TeamIds": [
                                             "1",
                                             "2"
                                         ]
                                     },
                                     {
-                                        "Id": 19,
-                                        "Name": "Rohit Singh",
-                                        "SubManagers": [],
+                                        "Id": 10,
+                                        "Name": "Tarak maheta",
+                                        "Teams": [],
+                                        "TeamIds": [
+                                            "1",
+                                            "2"
+                                        ]
+                                    },
+                                    {
+                                        "Id": 11,
+                                        "Name": "Elvish",
+                                        "Teams": [],
+                                        "TeamIds": [
+                                            "1",
+                                            "2"
+                                        ]
+                                    },
+                                    {
+                                        "Id": 12,
+                                        "Name": "Dhruv Rathee",
+                                        "Teams": [],
                                         "TeamIds": [
                                             "1",
                                             "2"
