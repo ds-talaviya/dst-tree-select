@@ -30,19 +30,20 @@
     </div>
 
     <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen" [ngClass]="getDropdownClass()">
-        <ng-container *ngIf="items.length > 0; else noDataFound">
-            <ng-container *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: items, level: 0 }"></ng-container>
+        <ng-container *ngIf="internalItems.length > 0; else noDataFound">
+            <ng-container
+                *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: internalItems, level: 0 }"></ng-container>
 
             <ng-template #recursiveCheckbox let-children let-level="level">
                 <div *ngFor="let item of children; let i = index">
                     <a href="javascript:;" class="dropdown-item" [ngStyle]="{'padding-left': (level * 15) + 10 + 'px'}">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input"
-                                [id]="'checkbox' + item[bindValue] ? item[bindValue] : item[bindLabel]"
+                                [id]="id + '-checkbox-' + item[bindValue] ? item[bindValue] : item[bindLabel]"
                                 [checked]="item.checked"
                                 (change)="handleCheckboxChange(item, $event);closeModalOnSelect()">
                             <label class="custom-control-label"
-                                [for]="'checkbox' + item[bindValue] ? item[bindValue] : item[bindLabel]">
+                                [for]="id + '-checkbox-' + item[bindValue] ? item[bindValue] : item[bindLabel]">
                                 {{ getName(item[bindLabel])}}
                             </label>
                         </div>

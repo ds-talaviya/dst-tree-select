@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 
 import { DstTreeSelectService } from './dst-tree-select.service';
@@ -11,7 +11,9 @@ import { DstTreeSelectService } from './dst-tree-select.service';
 })
 export class DstTreeSelectComponent implements OnChanges, OnInit {
 
+  @Input() id!: string;
   @Input() items: any = [];
+  internalItems: any[] = []; // this will help to treat every dropdown individually
   @Input() titleCase: boolean = true;
   @Input() bindLabel: string = 'Name';
   @Input() bindValue: string = 'Id';
@@ -31,7 +33,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
 
   @Input() config: any = {};
 
-  @Input() ngModel: any;
+  @Input() ngModel: any = null;
+  preselected: any = [];
   @Output() ngModelChange: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -59,7 +62,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!Object.keys(this.config).length) {
+    if (this.config && Object.keys(this.config).length) {
       this.titleCase = this.config.titleCase;
       this.bindLabel = this.config.bindLabel;
       this.bindValue = this.config.bindValue;
@@ -85,19 +88,27 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
       this.open.emit(true);
     }
 
-    if (!this.multiple && !!Array.isArray(this.ngModel)) {
-      this.ngModel = [this.ngModel[0]];
-    } else if (!this.multiple && !isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
-      this.ngModel = [this.ngModel];
-    } else if (!this.multiple && !isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
-      this.ngModel = [this.ngModel];
-    } else if (!this.multiple && typeof this.ngModel === 'object' && this.ngModel !== null) {
-      this.ngModel = [this.ngModel[this.bindValue]];
+    if (changes['items'] && changes['items'].currentValue) {
+      // Create a deep copy to prevent shared reference issues
+      this.internalItems = JSON.parse(JSON.stringify(this.items));
     }
   }
 
   ngOnInit() {
-    this.preselectNodesById(this.items, this.ngModel);
+    if (!this.multiple) {
+      if (!!Array.isArray(this.ngModel)) {
+        this.preselected = [this.ngModel[0]];
+      } else if (!isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
+        this.preselected = [this.ngModel];
+      } else if (!isNaN(parseFloat(this.ngModel)) && isFinite(this.ngModel)) {
+        this.preselected = [this.ngModel];
+      } else if (typeof this.ngModel === 'object' && this.ngModel !== null) {
+        this.preselected = [this.ngModel[this.bindValue]];
+      }
+    } else {
+      this.preselected = this.ngModel;
+    }
+    this.preselectNodesById(this.internalItems, this.preselected);
   }
 
   toggleDropdown() {
@@ -201,7 +212,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     const checked = (event.target as HTMLInputElement).checked;
     if (!this.multiple) {
       // For single select, reset other selections
-      this.items.forEach((node: any) => this.clearSelection(node));
+      this.internalItems.forEach((node: any) => this.clearSelection(node));
       this.selectedItems = [];
     }
     item.checked = checked;
@@ -213,7 +224,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
       this.change.emit(item);
     }
     this.updateChildren(item, checked);
-    this.updateParent(this.items, null);
+    this.updateParent(this.internalItems, null);
   }
 
   clearSelection(node: any) {
@@ -275,7 +286,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
         }
       });
     };
-    traverse(this.items, false); // Start from the root
+    traverse(this.internalItems, false); // Start from the root
     // Emit the updated selectedItems list
     this.ngModelChange.emit(this.emitSelectedData());
   }
@@ -309,14 +320,14 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
         }
       });
     };
-    removeNode(this.items);
-    this.updateParent(this.items, null);
+    removeNode(this.internalItems);
+    this.updateParent(this.internalItems, null);
   }
 
   /** ✅ Removes All Selected Items */
   removeAll() {
-    this.selectedItems = []; // Clear all selected items
-    this.uncheckAll(this.items); // Uncheck all nodes in data
+    this.selectedItems = []; // Clear all selected internalItems
+    this.uncheckAll(this.internalItems); // Uncheck all nodes in data
     this.clearAll.emit(true)
     this.change.emit(true)
     this.ngModelChange.emit(null);
