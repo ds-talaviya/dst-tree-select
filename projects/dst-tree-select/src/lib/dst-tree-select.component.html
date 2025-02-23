@@ -29,9 +29,13 @@
         </div>
     </div>
 
-    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen"
-        [ngStyle]="{'max-width':width,'overflow-x': width ? 'auto' : 'hidden', 'max-height':height}"
-        [ngClass]="getDropdownClass()" (scroll)="onScrollMenu($event)">
+    <div role="menu" class="dropdown-menu" *ngIf="dropdownOpen" [ngStyle]="{
+            'width': width ? width  : 'auto',
+            'min-width': '200px', 
+            'max-width': width ? width : '250px',
+            'overflow-x': width ? 'auto' : 'hidden',
+            'max-height': height
+        }" [ngClass]="getDropdownClass()" (scroll)="onScrollMenu($event)">
         <ng-container *ngIf="internalItems.length > 0; else noDataFound">
             <ng-container
                 *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: internalItems, level: 0 }"></ng-container>
