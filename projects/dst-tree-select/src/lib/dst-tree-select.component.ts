@@ -120,6 +120,11 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     !!this.dropdownOpen ? this.open.emit(true) : this.close.emit(true);
   }
 
+  onScrollMenu(event: any) {
+    const element = event.target;
+    this.scroll.emit(element.scrollTop)
+  }
+
   getName(text: string) {
     if (!!this.titleCase) {
       return this.titleCasePipe.transform(text)
