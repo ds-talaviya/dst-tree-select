@@ -32,9 +32,11 @@ export class AppComponent {
     clearAllText: "Remove All",
     dropdownOpen: false,
     readonly: false,
-    dropdownPosition: "auto",
+    dropdownPosition: "left",
     searchable: true,
     expandable: true,
+    height:'150px',
+    width:'20rem'
   }
 
   singleSelectConfig = {
