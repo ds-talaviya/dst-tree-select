@@ -120,7 +120,6 @@ config = {
 | multiple         | Allow multiple selections         | true, false                      | false            |
 | dropdownPosition | Position of dropdown              | auto, top, bottom                | auto             |
 | searchable       | Allow searching elements          | true, false                      | true             |
-| clearSearchOnAdd | Allow clear search input text after select | true, false             | true             |
 | expandable       | Allow expand collapse selection   | true, false                      | true             |
 | height           | Allow to give custom max height   | em, rem, px (any unit)           | 350px            |
 | width            | Allow to give custom max width    | em, rem, px (any unit)           | 250px            |
@@ -134,7 +133,7 @@ config = {
 | select            | Fired on any element selected           |selected element object |
 | clear             | Fired on remove element                 |removed element object  |
 | clearAll          | Fired on remove all elements            |true                    |
-| search            | Fired on search                         |searched text, with filtered data           |
+| search            | Fired on search                         |searched text           |
 | scroll            | Fired on scroll                         |true                    |
 
 
