@@ -1,27 +1,29 @@
 <div class="dropdown" [class.open]="dropdownOpen">
-    <div class="chip-input" (click)="!readonly ? toggleDropdown() : null">
+    <div class="chip-input" (click)="focusInput();!readonly ? dropdownOpen=true : null">
         <div class="chip-select-container">
             <div class="chip-value-container">
-                <ng-container *ngIf="selectedItems.length > 0; else placeholder">
-                    <ng-container *ngFor="let item of selectedItems" class="">
+                <ng-container *ngIf="selectedItems.length > 0;">
+                    <ng-container *ngFor="let item of selectedItems">
                         <div class="chip-value">
                             <span class="chip-value-label">
-                                {{ getName(item[bindLabel])}}
+                                {{ getName(item[bindLabel]) }}
                             </span>
-                            <span class="chip-value-icon" (click)="removeItem(item);" *ngIf="!readonly">×</span>
+                            <span class="chip-value-icon"
+                                (click)="removeItem(item);focusInput(); $event.stopPropagation();"
+                                *ngIf="!readonly">×</span>
                         </div>
                     </ng-container>
                 </ng-container>
 
-                <ng-template #placeholder>
-                    <div role="combobox" class="chip-input">
-                        <input type="text" autocorrect="off" autocapitalize="off" [attr.placeholder]="getPlaceHolder()">
-                    </div>
-                </ng-template>
+                <div class="chip-input">
+                    <input #chipInput type="text" [(ngModel)]="searchText" (input)="onSearch($event)"
+                        [attr.placeholder]="selectedItems.length === 0 ? getPlaceHolder() : ''">
+                </div>
             </div>
-            <div class="chip-clear-wrapper" [title]="getClearAllText()" (click)="removeAll();"
+            <div class="chip-clear-wrapper" [title]="getClearAllText()"
+                (click)="removeAll();focusInput(); $event.stopPropagation();"
                 *ngIf="selectedItems.length > 0 && !!clearable">
-                <span class=" chip-clear">×</span>
+                <span class="chip-clear">×</span>
             </div>
             <div class="chip-arrow-wrapper">
                 <span class="chip-arrow" [ngClass]="{'chip-arrow-up': dropdownOpen }"></span>
@@ -36,9 +38,9 @@
             'overflow-x': width ? 'auto' : 'hidden',
             'max-height': height
         }" [ngClass]="getDropdownClass()" (scroll)="onScrollMenu($event)">
-        <ng-container *ngIf="internalItems.length > 0; else noDataFound">
+        <ng-container *ngIf="filteredData.length > 0; else noDataFound">
             <ng-container
-                *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: internalItems, level: 0 }"></ng-container>
+                *ngTemplateOutlet="recursiveCheckbox; context: { $implicit: filteredData, level: 0 }"></ng-container>
 
             <ng-template #recursiveCheckbox let-children let-level="level">
                 <ng-container *ngFor="let item of children; let i = index">
@@ -47,7 +49,7 @@
                             <input type="checkbox" class="custom-control-input"
                                 [id]="id + '-checkbox-' + item[bindValue] ? item[bindValue] : item[bindLabel]"
                                 [checked]="item.checked"
-                                (change)="handleCheckboxChange(item, $event);closeModalOnSelect()">
+                                (change)="handleCheckboxChange(item, $event);closeModalOnSelect();focusInput()">
                             <label class="custom-control-label"
                                 [for]="id + '-checkbox-' + item[bindValue] ? item[bindValue] : item[bindLabel]">
                                 {{ getName(item[bindLabel])}}
