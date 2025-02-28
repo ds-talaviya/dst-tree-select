@@ -3,14 +3,14 @@
         <div class="chip-select-container">
             <div class="chip-value-container">
                 <ng-container *ngIf="selectedItems.length > 0; else placeholder">
-                    <ng-container *ngFor="let item of selectedItems" class="">
+                    <div *ngFor="let item of selectedItems">
                         <div class="chip-value">
                             <span class="chip-value-label">
-                                {{ getName(item[bindLabel])}}
+                                {{ getName(item[bindLabel]) }}
                             </span>
                             <span class="chip-value-icon" (click)="removeItem(item);" *ngIf="!readonly">×</span>
                         </div>
-                    </ng-container>
+                    </div>
                 </ng-container>
 
                 <ng-template #placeholder>

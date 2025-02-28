@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 
 import { DstTreeSelectService } from './dst-tree-select.service';
@@ -55,7 +55,8 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
   constructor(
     public titleCasePipe: TitleCasePipe,
     public dstTreeSelectService: DstTreeSelectService,
-    private eRef: ElementRef) { }
+    private eRef: ElementRef,
+    private cdr: ChangeDetectorRef) { }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
@@ -302,6 +303,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     traverse(this.internalItems, false); // Start from the root
     // Emit the updated selectedItems list
     this.ngModelChange.emit(this.emitSelectedData());
+    this.cdr.detectChanges();
   }
 
   emitSelectedData() {
@@ -344,6 +346,7 @@ export class DstTreeSelectComponent implements OnChanges, OnInit {
     this.clearAll.emit(true)
     this.change.emit(true)
     this.ngModelChange.emit(null);
+    this.cdr.detectChanges();
   }
 
   /** ✅ Recursive Function to Uncheck All Nodes */
